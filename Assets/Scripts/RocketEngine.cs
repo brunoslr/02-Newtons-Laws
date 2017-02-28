@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [RequireComponent (typeof(PhysicsEngine))]
 public class RocketEngine : MonoBehaviour {
@@ -31,14 +30,14 @@ public class RocketEngine : MonoBehaviour {
 		}
 	}	
 	
-	float FuelThisUpdate () {							// [
-		float exhaustMassFlow;							// [
-		float effectiveExhastVelocity;					// [
-		
-		effectiveExhastVelocity = 4462f;				// [m s^-1]  liquid H O
-		exhaustMassFlow = currentThrust / effectiveExhastVelocity;		
-			
-		return exhaustMassFlow * Time.deltaTime;
+	float FuelThisUpdate () {							
+        float exhaustMassFlow;                          // [KG]
+        float effectiveExhaustVelocity;                 // [m s^-1]
+
+        effectiveExhaustVelocity = 4462f;               // [m s^-1] Liquid H  0
+        exhaustMassFlow = currentThrust / effectiveExhaustVelocity; // [kg]
+
+        return exhaustMassFlow * Time.deltaTime;
 	}
 	
 	void ExertForce () {
