@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(PhysicsEngine))]
 public class FluidDrag : MonoBehaviour {
 
 	[Range (1, 2f)]
@@ -17,8 +18,8 @@ public class FluidDrag : MonoBehaviour {
 	void FixedUpdate () {
 		Vector3	velocityVector = physicsEngine.velocityVector;
 		float speed = velocityVector.magnitude;
-		float dragSize = CalculateDrag (speed);
-		Vector3 dragVector = dragSize * -velocityVector.normalized;
+		float dragMagnitude = CalculateDrag (speed);
+		Vector3 dragVector = dragMagnitude * -velocityVector.normalized;
 		
 		physicsEngine.AddForce (dragVector);
 	}

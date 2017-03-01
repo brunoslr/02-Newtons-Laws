@@ -21,13 +21,12 @@ public class RocketEngine : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		if (fuelMass > FuelThisUpdate()) {
-			fuelMass -= FuelThisUpdate();
-			physicsEngine.mass -= FuelThisUpdate();
-			ExertForce ();
-		} else {
-			Debug.LogWarning ("Out of rocket fuel");
-		}
+        if (fuelMass > FuelThisUpdate())
+        {
+            fuelMass -= FuelThisUpdate();
+            physicsEngine.mass -= FuelThisUpdate();
+            ExertForce();
+        }
 	}	
 	
 	float FuelThisUpdate () {							

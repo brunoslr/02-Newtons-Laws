@@ -10,19 +10,13 @@ public class PhysicsEngine : MonoBehaviour {
 	public Vector3 netForceVector;  // N [kg m s^-2]
 	
 	private List<Vector3> forceVectorList = new List<Vector3>();
-
-    private PhysicsEngine[] physicsEngineArray;
-
-    private const float bigG = 6.673e-11f; // [m^3 s^-2 kg^-1]
-
+    
     // Use this for initialization
     void Start () {
 		SetupThrustTrails();
-        physicsEngineArray = GameObject.FindObjectsOfType<PhysicsEngine>();
     }
 	
 	void FixedUpdate () {
-        CalculateGravity();
         RenderTrails();
         UpdateVelocity();
         UpdatePosition ();
@@ -38,33 +32,14 @@ public class PhysicsEngine : MonoBehaviour {
         netForceVector = forceVectorList.Aggregate(Vector3.zero, (acc, cur) => (acc + cur));
         forceVectorList = new List<Vector3>();
         Vector3 accelerationVector = netForceVector / mass;
-        velocityVector =  accelerationVector*Time.deltaTime;
+        velocityVector += accelerationVector*Time.deltaTime;
     }
 
 
     public void AddForce(Vector3 forceVector)
     {
         forceVectorList.Add(forceVector);
-        Debug.Log("Adding force " + forceVector + " to " + gameObject.name);
-    }
-
-    void CalculateGravity()
-    {
-        foreach (var physicsEngineA in physicsEngineArray)
-        {
-            foreach (var physicsEngineB in physicsEngineArray)
-            {
-                if (physicsEngineA != physicsEngineB && physicsEngineA != this)
-                {
-                    Vector3 offset = physicsEngineA.transform.position - physicsEngineB.transform.position;
-                    float rSquared = Mathf.Pow(offset.magnitude, 2f);
-                    float gravityMagnitude = bigG * physicsEngineA.mass * physicsEngineB.mass / rSquared;
-                    Vector3 gravityFeltVector = gravityMagnitude * offset.normalized;
-                    physicsEngineA.AddForce(-gravityFeltVector);
-                }
-
-            }
-        }
+        //Debug.Log("Adding force " + forceVector + " to " + gameObject.name);
     }
 
 

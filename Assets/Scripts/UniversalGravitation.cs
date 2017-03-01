@@ -13,7 +13,7 @@ public class UniversalGravitation : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		CalculateGravity  ();
+		CalculateGravity();
 	}
 	
 	void CalculateGravity () {
